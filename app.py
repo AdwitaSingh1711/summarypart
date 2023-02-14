@@ -1,6 +1,6 @@
 #from flask_restful import Api, Resource, reqparse
 #from summary import summarize
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
@@ -40,11 +40,12 @@ def summarizer(text,per):
     # Your summarizer code goes here
 
 # Define your Flask API endpoint
-@app.route('/api/summarize', methods=['POST'])
+@app.route('/', methods=['POST'])
 def summarize():
-    text = request.json.get('text')
-    summary = summarize(text,1.5)
-    return summary
+    data = request.get_json()
+    text = data['text']
+    summary = summarizer(text,1.5)
+    return jsonify({'summary': summary})
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
