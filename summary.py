@@ -39,4 +39,4 @@ def summarize(text, per):
     summary=''.join(final_summary)
     return summary
 
-GeneratedSum = summarize(text,per)    
+#GeneratedSum = summarize(text,per)    
